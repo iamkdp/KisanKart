@@ -33,7 +33,7 @@ const registerUser = async (req, res) => {
             password: hashed,
             role
         });
-
+        await user.save();
         res.status(201).json({
             message: "User registered",
             status: true,
