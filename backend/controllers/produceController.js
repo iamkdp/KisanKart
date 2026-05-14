@@ -125,9 +125,52 @@ const deleteProduce = async (req, res) => {
     }
 };
 
+const getAllProduce = async (req, res) => {
+    try {
+        const filter = { isAvailable: true };
+        if (req.query.name) {
+            filter.name = { $regex: req.query.name, $options: 'i' };
+        }
+        if (req.query.location) {
+            filter.location = { $regex: req.query.location, $options: 'i' }
+        }
+        const produce = await Produce.find(filter).populate('farmer', 'name email');
+        res.status(200).json({
+            success: true,
+            count: produce.length,
+            produce
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+}
+
+const getSingleProduce = async (req, res) => {
+    try {
+        const produce = await Produce.findById(req.params.id).populate('farmer', 'name email');
+        if (!produce) {
+            return res.status(404).json({
+                message: "Produce not found"
+            });
+        }
+        res.status(200).json({
+            success: true,
+            produce
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+}
 export {
     createProduce,
     getProduce,
     updateProduce,
-    deleteProduce
+    deleteProduce,
+    getAllProduce,
+    getSingleProduce
 };
