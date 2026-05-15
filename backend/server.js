@@ -3,6 +3,7 @@ import connectDB from "./config/db.js";
 import dotenv from "dotenv";
 import router from "./routes/authRoute.js"
 import produceRouter from "./routes/produceRoute.js";
+import orderRouter from "./routes/orderRoute.js";
 
 dotenv.config();
 const app = express();
@@ -21,6 +22,9 @@ app.listen(PORT,
 app.use("/api/auth", router);
 
 app.use("/api/produce", produceRouter);
+
+app.use("/api/orders", orderRouter);
+
 app.get("/auth/health", (req, res) => {
     res.json({ status: 'ok' });
 })
