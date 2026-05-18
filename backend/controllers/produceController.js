@@ -2,7 +2,11 @@ import Produce from "../models/Produce.js";
 
 const createProduce = async (req, res) => {
     try {
-
+        if (req.user.role !== "farmer") {
+            return res.status(403).json({
+                message: "Only farmers can create listings"
+            });
+        }
         const { name, quantity, unit, price, location } = req.body;
 
         const produce = await Produce.create({
@@ -16,6 +20,7 @@ const createProduce = async (req, res) => {
 
         res.status(201).json({
             success: true,
+            message : "Listing created succesfully",
             produce
         });
 
@@ -28,7 +33,11 @@ const createProduce = async (req, res) => {
 
 const getProduce = async (req, res) => {
     try {
-
+        if (req.user.role !== "farmer") {
+            return res.status(403).json({
+                message: "Only farmers can create listings"
+            });
+        }
         const produce = await Produce.find({
             farmer: req.user._id
         });
@@ -48,7 +57,11 @@ const getProduce = async (req, res) => {
 
 const updateProduce = async (req, res) => {
     try {
-
+        if (req.user.role !== "farmer") {
+            return res.status(403).json({
+                message: "Only farmers can create listings"
+            });
+        }
         const { id } = req.params;
 
         const product = await Produce.findById(id);
@@ -94,7 +107,11 @@ const updateProduce = async (req, res) => {
 
 const deleteProduce = async (req, res) => {
     try {
-
+        if (req.user.role !== "farmer") {
+            return res.status(403).json({
+                message: "Only farmers can create listings"
+            });
+        }
         const { id } = req.params;
 
         const product = await Produce.findById(id);
