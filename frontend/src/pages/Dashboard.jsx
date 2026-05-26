@@ -10,9 +10,23 @@ export default function Dashboard() {
             {user?.role === 'farmer' && (
                 <div>
                     <a href="/farmer/createListing">Create Listing</a>
+                    <br />
                     <a href="/farmer/myListings">My Listings</a>
+                    <br />
+                    <a href="/farmer/orders">
+                        Received Orders
+                    </a>
                 </div>
             )}
+            {
+                user?.role === 'vendor' && (
+                    <div>
+                        <a href="/vendor/browseListings">Browse Listings</a>
+                        <br />
+                        <a href="/vendor/myOrders">My Orders</a>
+                    </div>
+                )
+            }
         </div>
     )
 }

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 export default function MyListings() {
     const [listings, setListings] = useState([]);
     const [message, setMessage] = useState("");
+
     useEffect(() => {
         const fetchListings = async () => {
             try {
@@ -32,7 +33,7 @@ export default function MyListings() {
                         <li key={listing._id}>
                             <h2>{listing.name}</h2>
                             <p>Quantity: {listing.quantity} {listing.unit}</p>
-                            <p>Price: ${listing.price.toFixed(2)}</p>
+                            <p>Price: ₹{listing.price.toFixed(2)}</p>
                             <p>Location: {listing.location}</p>
                             <button onClick={() => handledelete(listing._id)}>Delete</button>
                         </li>

@@ -5,6 +5,9 @@ import Dashboard from "./pages/Dashboard.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import CreateListing from "./pages/farmer/CreateListing.jsx";
 import MyListings from "./pages/farmer/MyListings.jsx";
+import BrowseListings from "./pages/vendor/BrowseListings.jsx";
+import MyOrders from "./pages/vendor/MyOrders.jsx";
+import ReceivedOrders from "./pages/farmer/RecievedOrders.jsx";
 export default function App() {
   return (
     <Router>
@@ -26,6 +29,25 @@ export default function App() {
             <MyListings />
           </ProtectedRoute>
         } />
+        <Route path="/vendor/browseListings" element={
+          <ProtectedRoute>
+            <BrowseListings />
+          </ProtectedRoute>
+        } />
+        <Route path="/vendor/myOrders" element={
+          <ProtectedRoute>
+            <MyOrders />
+          </ProtectedRoute>
+        } />
+        <Route
+          path="/farmer/orders"
+          element={
+            <ProtectedRoute>
+              <ReceivedOrders />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="*" element={<div>Page Not Found</div>} />
       </Routes>
     </Router>
   );

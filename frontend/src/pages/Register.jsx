@@ -6,7 +6,7 @@ export default function Register() {
         name: "",
         email: "",
         password: "",
-        role: ""
+        role: "farmer"
     });
     const handleSubmit = async () => {
         try {
@@ -22,9 +22,25 @@ export default function Register() {
             <input placeholder="Name" onChange={e => setFormData({ ...formData, name: e.target.value })} />
             <input placeholder="Email" onChange={e => setFormData({ ...formData, email: e.target.value })} />
             <input placeholder="Password" type="password" onChange={e => setFormData({ ...formData, password: e.target.value })} />
-            <select onChange={e => setFormData({ ...formData, role: e.target.value })}>
-                <option value="farmer">Farmer</option>
-                <option value="vendor">vendor</option>
+            <select
+                name="role"
+                value={formData.role}
+                onChange={e =>
+                    setFormData({
+                        ...formData,
+                        role: e.target.value
+                    })
+                }
+            >
+
+                <option value="farmer">
+                    Farmer
+                </option>
+
+                <option value="vendor">
+                    Vendor
+                </option>
+
             </select>
             <button onClick={handleSubmit}>Register</button>
         </div>
