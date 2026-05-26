@@ -22,14 +22,39 @@ export default function PlaceOrder({ produceId }) {
         }
     }
     return (
-        <div>
-            <input type="number"
+        <div className="mt-4">
+
+            <input
+                className="w-full border p-2 rounded mb-3"
+                type="number"
                 placeholder="Quantity"
                 value={quantity}
-                onChange={(e) => setQuantity(e.target.value)}
+                onChange={(e) =>
+                    setQuantity(
+                        e.target.value
+                    )
+                }
             />
-            <button onClick={handlePlaceOrder}>Place Order</button>
-            {message && <p>{message}</p>}
+
+            <button
+                className="w-full bg-green-700 text-white py-2 rounded hover:bg-green-800"
+                onClick={handlePlaceOrder}
+            >
+
+                Place Order
+
+            </button>
+
+            {message && (
+
+                <p className="text-green-700 mt-2">
+
+                    {message}
+
+                </p>
+
+            )}
+
         </div>
     );
 }

@@ -8,9 +8,11 @@ import MyListings from "./pages/farmer/MyListings.jsx";
 import BrowseListings from "./pages/vendor/BrowseListings.jsx";
 import MyOrders from "./pages/vendor/MyOrders.jsx";
 import ReceivedOrders from "./pages/farmer/RecievedOrders.jsx";
+import Navbar from "./components/Navbar.jsx";
 export default function App() {
   return (
     <Router>
+      <Navbar />
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />

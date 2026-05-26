@@ -79,90 +79,127 @@ export default function ReceivedOrders() {
 
     return (
 
-        <div>
+        <div className="min-h-screen bg-gray-100 p-8">
 
-            <h2>
+            <h2 className="text-3xl font-bold text-green-700 mb-6">
+
                 Received Orders
+
             </h2>
 
-            {message &&
-                <p>
+            {message && (
+
+                <p className="text-red-500 mb-4">
+
                     {message}
-                </p>
-            }
 
-            {orders.length === 0 &&
-                <p>
+                </p>
+
+            )}
+
+            {orders.length === 0 ? (
+
+                <p className="text-gray-500">
+
                     No received orders
+
                 </p>
-            }
 
-            {orders.map(order => (
+            ) : (
 
-                <div
-                    key={order._id}
-                >
 
-                    <p>
-                        Item:
-                        {order.item?.name}
-                    </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                    <p>
-                        Quantity:
-                        {order.quantity}
-                    </p>
+                    {orders.map(order => (
 
-                    <p>
-                        Vendor:
-                        {order.vendor?.name}
-                    </p>
+                        <div
+                            key={order._id}
+                            className="bg-white rounded-lg shadow-md p-6"
+                        >
 
-                    <p>
-                        Total:
-                        ₹{order.totalPrice}
-                    </p>
+                            <h3 className="text-xl font-bold text-green-700 mb-2">
 
-                    <p>
-                        Status:
-                        {order.status}
-                    </p>
+                                {order.item?.name}
 
-                    {order.status === "pending" && (
+                            </h3>
 
-                        <div>
+                            <p className="text-gray-600">
 
-                            <button
-                                onClick={() =>
-                                    updateStatus(
-                                        order._id,
-                                        "accepted"
-                                    )
-                                }
-                            >
-                                Accept
-                            </button>
+                                Quantity:
+                                {order.quantity}
 
-                            <button
-                                onClick={() =>
-                                    updateStatus(
-                                        order._id,
-                                        "rejected"
-                                    )
-                                }
-                            >
-                                Reject
-                            </button>
+                            </p>
+
+                            <p className="text-gray-600">
+
+                                Vendor:
+                                {order.vendor?.name}
+
+                            </p>
+
+                            <p className="text-gray-600">
+
+                                ₹{order.totalPrice}
+
+                            </p>
+
+                            <p className="mb-4">
+
+                                Status:
+
+                                <span className="font-semibold">
+
+                                    {order.status}
+
+                                </span>
+
+                            </p>
+
+
+                            {order.status === "pending" && (
+
+                                <div className="flex gap-3">
+
+                                    <button
+                                        className="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-800"
+                                        onClick={() =>
+                                            updateStatus(
+                                                order._id,
+                                                "accepted"
+                                            )
+                                        }
+                                    >
+
+                                        Accept
+
+                                    </button>
+
+
+                                    <button
+                                        className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                                        onClick={() =>
+                                            updateStatus(
+                                                order._id,
+                                                "rejected"
+                                            )
+                                        }
+                                    >
+
+                                        Reject
+
+                                    </button>
+
+                                </div>
+
+                            )}
 
                         </div>
 
-                    )}
-
-                    <hr />
+                    ))}
 
                 </div>
 
-            ))}
+            )}
 
         </div>
 

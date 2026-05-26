@@ -62,59 +62,101 @@ export default function CreateListing() {
     }
 
     if (user?.role === "vendor") {
+
         return (
-            <h3>
-                Only farmers can create listings
-            </h3>
+
+            <div className="min-h-screen flex items-center justify-center bg-gray-100">
+
+                <div className="bg-white rounded-lg shadow-md p-8">
+
+                    <h3 className="text-red-500 text-xl font-semibold">
+
+                        Only farmers can create listings
+
+                    </h3>
+
+                </div>
+
+            </div>
+
         )
+
     }
 
     return (
-        <div>
 
-            <h1>Create Listing</h1>
+        <div className="min-h-screen bg-gray-100 p-8">
 
-            <input
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="Name"
-            />
+            <div className="bg-white rounded-lg shadow-md p-8 max-w-lg mx-auto">
 
-            <input
-                name="quantity"
-                value={formData.quantity}
-                onChange={handleChange}
-                placeholder="Quantity"
-            />
+                <h1 className="text-3xl font-bold text-green-700 mb-6">
 
-            <input
-                name="unit"
-                value={formData.unit}
-                onChange={handleChange}
-                placeholder="Unit"
-            />
+                    Create Listing
 
-            <input
-                name="price"
-                value={formData.price}
-                onChange={handleChange}
-                placeholder="Price"
-            />
+                </h1>
 
-            <input
-                name="location"
-                value={formData.location}
-                onChange={handleChange}
-                placeholder="Location"
-            />
+                <input
+                    className="w-full border p-3 rounded mb-4"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Crop Name"
+                />
 
-            <button onClick={handleSubmit}>
-                Create Listing
-            </button>
+                <input
+                    className="w-full border p-3 rounded mb-4"
+                    name="quantity"
+                    value={formData.quantity}
+                    onChange={handleChange}
+                    placeholder="Quantity"
+                />
 
-            {message && <p>{message}</p>}
+                <input
+                    className="w-full border p-3 rounded mb-4"
+                    name="unit"
+                    value={formData.unit}
+                    onChange={handleChange}
+                    placeholder="Unit"
+                />
+
+                <input
+                    className="w-full border p-3 rounded mb-4"
+                    name="price"
+                    value={formData.price}
+                    onChange={handleChange}
+                    placeholder="Price"
+                />
+
+                <input
+                    className="w-full border p-3 rounded mb-6"
+                    name="location"
+                    value={formData.location}
+                    onChange={handleChange}
+                    placeholder="Location"
+                />
+
+                <button
+                    className="w-full bg-green-700 text-white py-3 rounded hover:bg-green-800"
+                    onClick={handleSubmit}
+                >
+
+                    Create Listing
+
+                </button>
+
+                {message && (
+
+                    <p className="text-green-700 mt-4">
+
+                        {message}
+
+                    </p>
+
+                )}
+
+            </div>
 
         </div>
+
     )
 }
