@@ -10,7 +10,7 @@ dotenv.config();
 const app = express();
 
 app.use(express.json());
-app.use(cors({origin:process.env.FRONTEND_URL  ,credentials:true}));
+app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
 
 connectDB();
 
@@ -27,7 +27,7 @@ app.use("/api/produce", produceRouter);
 
 app.use("/api/orders", orderRouter);
 
-app.get("/auth/health", (req, res) => {
+app.get("/api/health", (req, res) => {
     res.json({ status: 'ok' });
 })
 
