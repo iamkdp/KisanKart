@@ -1,1 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500&display=swap');
 @import "tailwindcss";
+
+:root {
+  /* Brand */
+  --color-primary: #1a6b3c;
+  --color-primary-light: #e8f5ee;
+  --color-primary-dark: #0f4526;
+  --color-accent: #f5a623;
+
+  /* Neutrals */
+  --color-bg: #f7f8f6;
+  --color-surface: #ffffff;
+  --color-border: #e4e7e1;
+  --color-text: #1a1f1c;
+  --color-text-muted: #6b7a72;
+
+  /* Spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  /* Shadow */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.10);
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Sora', sans-serif;
+}
