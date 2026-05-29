@@ -106,7 +106,7 @@ const getFarmerOrders = async (req, res) => {
         const orders = await Order.find({
             farmer: req.user._id
         })
-            .populate("item")
+            .populate("item", "name price unit")
             .populate("vendor", "name email");
 
         res.status(200).json({

@@ -10,50 +10,52 @@ import MyOrders from "./pages/vendor/MyOrders.jsx";
 import ReceivedOrders from "./pages/farmer/RecievedOrders.jsx";
 import Navbar from "./components/Navbar.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
-
+import { useLocation } from "react-router-dom";
 export default function App() {
+  const location = useLocation();
+  const showNavbar = location.pathname !== "/" && location.pathname !== "/register" && location.pathname !== "/login";
   return (
     <>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={
+      {showNavbar && <Navbar />}
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        } />
+        <Route path="/farmer/createListing" element={
+          <ProtectedRoute>
+            <CreateListing />
+          </ProtectedRoute>
+        } />
+        <Route path="/farmer/myListings" element={
+          <ProtectedRoute>
+            <MyListings />
+          </ProtectedRoute>
+        } />
+        <Route path="/vendor/browseListings" element={
+          <ProtectedRoute>
+            <BrowseListings />
+          </ProtectedRoute>
+        } />
+        <Route path="/vendor/myOrders" element={
+          <ProtectedRoute>
+            <MyOrders />
+          </ProtectedRoute>
+        } />
+        <Route
+          path="/farmer/orders"
+          element={
             <ProtectedRoute>
-              <Dashboard />
+              <ReceivedOrders />
             </ProtectedRoute>
-          } />
-          <Route path="/farmer/createListing" element={
-            <ProtectedRoute>
-              <CreateListing />
-            </ProtectedRoute>
-          } />
-          <Route path="/farmer/myListings" element={
-            <ProtectedRoute>
-              <MyListings />
-            </ProtectedRoute>
-          } />
-          <Route path="/vendor/browseListings" element={
-            <ProtectedRoute>
-              <BrowseListings />
-            </ProtectedRoute>
-          } />
-          <Route path="/vendor/myOrders" element={
-            <ProtectedRoute>
-              <MyOrders />
-            </ProtectedRoute>
-          } />
-          <Route
-            path="/farmer/orders"
-            element={
-              <ProtectedRoute>
-                <ReceivedOrders />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="*" element={<div>Page Not Found</div>} />
-        </Routes>
+          }
+        />
+        <Route path="*" element={<div>Page Not Found</div>} />
+      </Routes>
     </>
   );
 }
