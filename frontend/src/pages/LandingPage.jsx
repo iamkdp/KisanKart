@@ -234,7 +234,7 @@ export default function LandingPage() {
             </section>
 
             {/* ── Stats Bar ── */}
-            <section
+            {/* <section
                 ref={statsRef}
                 style={{
                     background: '#f0f7f2',
@@ -261,7 +261,7 @@ export default function LandingPage() {
                         </div>
                     ))}
                 </div>
-            </section>
+            </section> */}
 
             {/* ── How It Works ── */}
             <section

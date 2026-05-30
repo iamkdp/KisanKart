@@ -14,7 +14,23 @@ export default function CreateListing() {
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState("")
+  // Add to state
+  const [imageFiles, setImageFiles] = useState([])
+  const [previews, setPreviews] = useState([])
 
+  // Add this handler
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files).slice(0, 5)
+    setImageFiles(files)
+    setPreviews(files.map(f => URL.createObjectURL(f)))
+  }
+
+  const removeImage = (index) => {
+    const newFiles = imageFiles.filter((_, i) => i !== index)
+    const newPreviews = previews.filter((_, i) => i !== index)
+    setImageFiles(newFiles)
+    setPreviews(newPreviews)
+  }
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
     setError("")
@@ -30,11 +46,33 @@ export default function CreateListing() {
 
   const handleSubmit = async () => {
     const err = validate()
-    if (err) { setError(err); return }
+    if (err) {
+      setError(err)
+      return
+    }
+
     setLoading(true)
     setError("")
+
     try {
-      await api.post("/produce", formData)
+      const data = new FormData()
+
+      data.append("name", formData.name)
+      data.append("quantity", formData.quantity)
+      data.append("unit", formData.unit)
+      data.append("price", formData.price)
+      data.append("location", formData.location)
+
+      imageFiles.forEach(file => {
+        data.append("images", file)
+      })
+
+      await api.post("/produce", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+
       setSuccess(true)
     } catch (err) {
       setError(err?.response?.data?.message || "Something went wrong")
@@ -276,7 +314,91 @@ export default function CreateListing() {
               {formData.location ? ` · ${formData.location}` : ""}
             </div>
           )}
+          <Field label="Photos" hint="Optional ">
+            <label
+              style={{
+                display: "block",
+                border: "2px dashed #e4e7e1",
+                borderRadius: 10,
+                padding: "20px",
+                textAlign: "center",
+                cursor: "pointer",
+                background: "#f7f8f6",
+              }}
+            >
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={handleImageChange}
+                style={{ display: "none" }}
+              />
 
+              <div style={{ fontSize: 28, marginBottom: 6 }}>📷</div>
+
+              <div
+                style={{
+                  fontSize: 13,
+                  color: "#6b7a72",
+                }}
+              >
+                {imageFiles.length > 0
+                  ? `${imageFiles.length} photo${imageFiles.length > 1 ? "s" : ""} selected`
+                  : "Click to upload photos"}
+              </div>
+            </label>
+
+            {previews.length > 0 && (
+              <div
+                style={{
+                  display: "flex",
+                  gap: 8,
+                  marginTop: 10,
+                  flexWrap: "wrap",
+                }}
+              >
+                {previews.map((src, i) => (
+                  <div
+                    key={i}
+                    style={{ position: "relative" }}
+                  >
+                    <img
+                      src={src}
+                      alt=""
+                      style={{
+                        width: 72,
+                        height: 72,
+                        objectFit: "cover",
+                        borderRadius: 8,
+                        border: "1px solid #e4e7e1",
+                      }}
+                    />
+
+                    <button
+                      type="button"
+                      onClick={() => removeImage(i)}
+                      style={{
+                        position: "absolute",
+                        top: -6,
+                        right: -6,
+                        width: 20,
+                        height: 20,
+                        borderRadius: "50%",
+                        background: "#dc2626",
+                        color: "#fff",
+                        border: "none",
+                        cursor: "pointer",
+                        fontSize: 11,
+                        fontWeight: 700,
+                      }}
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </Field>
           <button
             onClick={handleSubmit}
             disabled={loading}

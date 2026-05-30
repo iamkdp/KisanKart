@@ -10,6 +10,10 @@ const produceSchema = new mongoose.Schema(
             enum: ["kg", "quintal", "ton", "dozen", "piece", "litre"],
             default: "kg"
         },
+        images: {
+            type: [String],
+            default: [],
+        },
         price: { type: Number, required: true },
         location: { type: String, required: true },
         isAvailable: { type: Boolean, default: true },

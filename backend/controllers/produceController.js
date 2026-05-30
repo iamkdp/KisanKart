@@ -8,19 +8,21 @@ const createProduce = async (req, res) => {
             });
         }
         const { name, quantity, unit, price, location } = req.body;
-
+        // Collect uploaded image URLs from Cloudinary
+        const images = req.files ? req.files.map(f => f.path) : []
         const produce = await Produce.create({
             farmer: req.user._id,
             name,
             quantity,
             unit,
             price,
-            location
+            location,
+            images,
         });
 
         res.status(201).json({
             success: true,
-            message : "Listing created succesfully",
+            message: "Listing created succesfully",
             produce
         });
 

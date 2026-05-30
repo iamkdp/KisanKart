@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import api from "../../api/axios"
 import PlaceOrder from "../../components/PlaceOrder"
+import { getDefaultImage } from "../../utils/defaultImages"
 
 const cropEmojis = {
   rice: "🌾", wheat: "🌾", tomato: "🍅", onion: "🧅",
@@ -306,7 +307,10 @@ export default function BrowseListings() {
 
 function ProduceCard({ listing: l, index }) {
   const emoji = getCropEmoji(l.name)
-
+  const imageUrl =
+    l.images && l.images.length > 0
+      ? l.images[0]
+      : getDefaultImage(l.name)
   return (
     <div style={{
       background: "#fff",
@@ -328,6 +332,21 @@ function ProduceCard({ listing: l, index }) {
         e.currentTarget.style.transform = "translateY(0)"
       }}
     >
+      <img
+        src={imageUrl}
+        alt={l.name}
+        style={{
+          width: "calc(100% + 40px)",
+          height: 180,
+          objectFit: "cover",
+          borderRadius: "16px 16px 0 0",
+          margin: "-20px -20px 16px -20px",
+          display: "block",
+        }}
+        onError={(e) => {
+          e.target.src = getDefaultImage("")
+        }}
+      />
       {/* Card header */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 14 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
